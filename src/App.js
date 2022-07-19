@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react'
+import Home from './components/Home/Home'
+import Login from './components/Login/Login'
+import Navbar from './components/Navbar/Navbar'
+import Register from './components/Register/Register'
+import NotFound from './components/NotFound/NotFound'
+import {Routes, Route , Navigate} from 'react-router-dom';
+import ProtectedRoutes from './components/Protected/ProtectedRoutes'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Navbar/>
+      <Routes>
+
+        {/* <Route  element={<ProtectedRoutes><Home/></ProtectedRoutes>} /> */}
+        {/* <Route path='/home' element={<Home/>}/> */}
+        <Route element={<ProtectedRoutes/>}>
+          <Route path='/home' element={<Home/>} exact/>
+        </Route>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/' element={<Navigate replace to="/home"/>}/>
+        <Route path='*' element={<NotFound/>}/>
+
+        </Routes> 
+    </>
+  )
 }
 
-export default App;
+export default App
